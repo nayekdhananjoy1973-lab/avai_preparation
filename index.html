@@ -33,22 +33,25 @@
 </h1>
             <div id="timer" class="font-mono bg-slate-800 px-4 py-1 rounded border border-slate-700 text-yellow-400">03:00:00</div>
         </div>
-        <div class="flex gap-4">
+        <div class="flex items-center gap-3">
+            <select id="examSelector" onchange="filterByExam()" class="bg-slate-800 border border-slate-700 rounded px-3 py-1 text-sm font-bold text-blue-400 outline-none">
+                <option value="JEE">JEE Main</option>
+                <option value="NEET">NEET</option>
+                <option value="WBJEE">WBJEE</option>
+                <option value="NDA">NDA</option>
+                <option value="CUET">CUET</option>
+                <option value="UPSC">UPSC (Prelims)</option>
+            </select>
             <select id="langSwitch" class="bg-slate-800 border border-slate-700 rounded px-3 py-1 text-sm outline-none">
                 <option value="en">English</option>
                 <option value="bn">বাংলা</option>
             </select>
-            <button onclick="showFinalResult()" class="bg-red-600 hover:bg-red-700 px-6 py-1 rounded font-bold transition">FINISH TEST</button>
+            <a href="calculator.html" target="_blank" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-bold px-3 py-1 rounded flex items-center gap-1 shadow-md transition">
+                <span>✦</span> Calculator
+            </a>
+            <button onclick="showFinalResult()" class="bg-red-600 hover:bg-red-700 px-5 py-1 rounded font-bold text-sm transition">FINISH TEST</button>
         </div>
     </header>
-     <select id="examSelector" onchange="filterByExam()" class="bg-slate-800 border border-slate-700 rounded px-3 py-1 text-sm font-bold text-blue-400">
-    <option value="JEE">JEE Main</option>
-    <option value="NEET">NEET</option>
-    <option value="WBJEE">WBJEE</option>
-    <option value="NDA">NDA</option>
-    <option value="CUET">CUET</option>
-    <option value="UPSC">UPSC (Prelims)</option>
-</select>
 
     <main class="flex h-[calc(100vh-68px)]">
         <div class="flex-1 flex flex-col bg-white overflow-hidden">
@@ -121,14 +124,6 @@
     <script>
         // CONFIG: Replace this with your Google Sheet CSV URL
         const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2d2cT2h-sVPSX9PiAQG503jm-bPfHp7uTi2YVo2BN3wbCzl6peJdsZBHkMVBinrvciJnDXfYMqO1C/pub?output=csv';
-        <select id="examSelector" onchange="filterByExam()" class="bg-slate-800 border border-slate-700 rounded px-3 py-1 text-sm font-bold text-blue-400">
-    <option value="JEE">JEE Main</option>
-    <option value="NEET">NEET</option>
-    <option value="WBJEE">WBJEE</option>
-    <option value="NDA">NDA</option>
-    <option value="CUET">CUET</option>
-    <option value="UPSC">UPSC (Prelims)</option>
-</select>
 
         let questionBank = [];
         let currentSubject = "Chemistry";
@@ -140,10 +135,11 @@
         // 1. FETCH DATA FROM GOOGLE SHEETS
         async function loadData() {
             try {
-                const response = await fetch(https://docs.google.com/spreadsheets/d/e/2PACX-1vR2d2cT2h-sVPSX9PiAQG503jm-bPfHp7uTi2YVo2BN3wbCzl6peJdsZBHkMVBinrvciJnDXfYMqO1C/pub?output=csv);
+                const response = await fetch(SHEET_CSV_URL);
                 const csvData = await response.text();
                 // At the very end of your data fetching function:
-document.getElementById('loader').classList.add('hidden');
+                const loader = document.getElementById('loader');
+                if (loader) loader.classList.add('hidden');
 
                 Papa.parse(csvData, {
                     header: true,
@@ -283,6 +279,7 @@ questionBank = results.data.map((row, i) => ({
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <p>© 2026 Avai Preparation. All rights reserved.</p>
         <div class="flex gap-6">
+            <a href="calculator.html" target="_blank" class="text-purple-400 hover:text-purple-300 font-bold transition">✦ Scientific Calculator</a>
             <a href="about.html" class="hover:text-white transition">About Us</a>
             <a href="privacy.html" class="hover:text-white transition">Privacy Policy</a>
             <a href="https://github.com/nayekdhananjoy1973-lab" class="hover:text-white transition">GitHub</a>
